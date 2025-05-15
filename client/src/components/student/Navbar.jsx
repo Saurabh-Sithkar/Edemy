@@ -7,7 +7,7 @@ import { AppContext } from '../../context/AppContext'
 
 const Navbar = () => {
 
-  const {navigate} = useContext(AppContext)
+  const {navigate, isEducator} = useContext(AppContext)
 
   const isCourseListPage = location.pathname.includes('/course-list');
 
@@ -25,7 +25,7 @@ const Navbar = () => {
           <div className='flex items-center gap-5'>
             { user && 
             <>
-              <button>Become Educator</button>
+              <button>{isEducator ? 'Educator Dashboard' : 'Become Educator'}</button>
                  <Link to='/my-enrollments'>My Enrollments</Link>
             </>
             }
