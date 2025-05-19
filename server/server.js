@@ -5,21 +5,25 @@ import ConnectDB from './configs/mongodb.js'
 import { clerkWebhooks } from './controllers/webhooks.js'
 import educatorRouter from './routes/educatorRoutes.js'
 import { clerkMiddleware } from '@clerk/express'
+import connectCloudinary from './configs/cloudinary.js'
+
 
 // Initialize Express
 const app = express()
 
 // Connect to Database
 await ConnectDB()
+await connectCloudinary()
 
 // Middlewares
 app.use(cors())
+app.use(express.json())
 app.use(clerkMiddleware())
 
 // Routes
 app.get('/', (req, res)=> res.send("API Working"))
 app.post('/clerk', express.json(), clerkWebhooks)
-app.use('/api/educator', express.json(), educatorRouter)
+app.use('/api/educator',express.json(), educatorRouter)
 
 
 
