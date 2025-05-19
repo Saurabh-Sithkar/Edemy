@@ -6,7 +6,7 @@ const lectureSchema = new mongoose.Schema({
      lectureTitle: { type: String, required: true},
      lectureDuration: { type: Number, required: true},
      lectureUrl: {type: String, required: true},
-     isPreviewFree: { type: Number, required: true},
+     isPreviewFree: { type: Boolean, required: true}, // Number say Boolean may change kiya hu yaha
      lectureOrder: { type: Number, required: true}
 },{_id: false});
 
