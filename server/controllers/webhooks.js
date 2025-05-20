@@ -81,14 +81,14 @@ export const stripeWebhooks = async(request, response)=>{
       const paymentIntent = event.data.object;
       const paymentIntentId = paymentIntent.id;
 
-        // const session = await stripeInstance.checkout.sessions.list({
-        //     payment_intent: paymentIntentId
-        // })
+        const session = await stripeInstance.checkout.sessions.list({
+            payment_intent: paymentIntentId
+        })
 
-        // const { purchaseId } = session.data[0].metadata;
+        const { purchaseId } = session.data[0].metadata;
 
         // niche wala line add kiya upper k lines ko commment kr k
-        const purchaseId = paymentIntent.metadata.purchaseId;
+        // const purchaseId = paymentIntent.metadata.purchaseId;
 
 
         const purchaseData = await Purchase.findById(purchaseId)
@@ -102,9 +102,9 @@ export const stripeWebhooks = async(request, response)=>{
 }
 
 
-      //  courseData.enrolledStudents.push(userData)
+       courseData.enrolledStudents.push(userData)
       // niche wala line add kiya hu 
-      courseData.enrolledStudents.push(userData._id);
+      //courseData.enrolledStudents.push(userData._id);
         await courseData.save()
 
         userData.enrolledCourses.push(courseData._id)
