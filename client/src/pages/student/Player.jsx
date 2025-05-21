@@ -19,7 +19,7 @@ const Player = () => {
   const [openSections , setOpenSections] = useState({})
   const [playerData , setPlayerData] = useState(null)
   const [progressData, setProgressData] = useState(null)
-  const [initialRating, setInitialRating] = userState(0)
+  const [initialRating, setInitialRating] = useState(0)
 
   const getCourseData = () =>{
       enrolledCourses.map((course)=>{
@@ -198,4 +198,4 @@ const Player = () => {
   ) : <Loading/>
 }
 
-export default Player
+export default Player;

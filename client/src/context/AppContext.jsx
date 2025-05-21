@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { dummyCourses } from "../assets/assets";
+// import { dummyCourses } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import { useAuth, useUser } from "@clerk/clerk-react";
@@ -68,7 +68,7 @@ export const AppContextProvider = (props) =>{
 
     // Function to calculate average rating of Course
     const calculateRating = (course) =>{
-        if(course.courseRatings.length == 0){
+        if(!course.courseRatings || course.courseRatings.length === 0){
             return 0;
         }
         let totalRating = 0;
@@ -81,7 +81,10 @@ export const AppContextProvider = (props) =>{
     // Function to Calculate Course Chapter Time
     const calculateChapterTime = (chapter) =>{
         let time = 0
-        chapter.chapterContent.map((lecture)=> time += lecture.lectureDuration)
+        // Yaha pr bhi if may rape kiya hu
+        if (Array.isArray(chapter.chapterContent)) {
+        chapter.chapterContent.map((lecture) => time += lecture.lectureDuration);
+    }
         return humanizeDuration(time * 60 *1000,{units: ["h","m"]})
     }
 
@@ -89,9 +92,22 @@ export const AppContextProvider = (props) =>{
     const calculateCourseDuration = (course) =>{
         let time = 0
 
-        course.courseContent.map((chapter)=> chapter.chapterContent.map(
-            (lecture) => time += lecture.lectureDuration 
-        ))
+        // course.courseContent.map((chapter)=> chapter.chapterContent.map(
+        //     (lecture) => time += lecture.lectureDuration 
+        // ))
+
+        // Upper wale ko comment kr k niche add kiya hu 
+
+        if (Array.isArray(course.courseContent)) {
+        course.courseContent.forEach((chapter) => {
+            if (Array.isArray(chapter.chapterContent)) {
+                chapter.chapterContent.forEach(
+                    (lecture) => time += lecture.lectureDuration
+                );
+            }
+        });
+    }
+
         return humanizeDuration(time * 60 *1000,{units: ["h","m"]})        
 
     }
@@ -99,11 +115,15 @@ export const AppContextProvider = (props) =>{
     // Function calculate to No of Lecture in the course
     const calculateNoOfLectures = (course)=>{
             let totalLectures = 0;
-            course.courseContent.forEach(chapter =>{
-                if(Array.isArray(chapter.chapterContent)){
-                    totalLectures += chapter.chapterContent.length;
-                }
-            });
+
+            // if condition may rape kiya hua yaha pr
+           if (Array.isArray(course.courseContent)) {
+        course.courseContent.forEach(chapter => {
+            if (Array.isArray(chapter.chapterContent)) {
+                totalLectures += chapter.chapterContent.length;
+            }
+        });
+    }
             return totalLectures;
         }
     
