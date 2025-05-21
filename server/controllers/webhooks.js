@@ -126,7 +126,8 @@ export const stripeWebhooks = async(request, response)=>{
         userData.enrolledCourses.push(courseData._id)
         await userData.save()
 
-        purchaseData.status = 'completed'
+        // purchaseData.status = 'completed'
+        purchaseData.status = 'pending'
         await purchaseData.save()
 
       break;
