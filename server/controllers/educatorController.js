@@ -116,7 +116,8 @@ export const getEnrolledStudentsData = async (req, res)=>{
 
         const purchases = await Purchase.find({
             courseId: {$in: courseIds},
-            status: 'completed'
+            // status: 'completed'
+            status: 'pending'
         }).populate('userId','name imageUrl').populate('courseId', 'courseTitle')
 
         const enrolledStudents = purchases.map(purchase => ({
