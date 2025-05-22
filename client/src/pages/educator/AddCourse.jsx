@@ -283,7 +283,8 @@ const AddCourse = () => {
                      className='mt-1 scale-125'
                      value={lectureDetails.isPreviewFree}
                      onChange={(e) => setLectureDetails({...lectureDetails,
-                      isPreviewFree: e.target.value })}
+                      // value k jagah pr checked likha hu
+                      isPreviewFree: e.target.checked })}
                      />
                   </div>
 

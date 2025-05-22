@@ -20,19 +20,25 @@ const CourseDetails = () => {
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
   const [playerData, setPlayerData] = useState(null);
   
-
-  const {allCourses, calculateRating,calculateNoOfLectures,
+// remove kiya hu allCourses
+  const { calculateRating,calculateNoOfLectures,
             calculateCourseDuration, calculateChapterTime,currency, 
           backendUrl, userData ,getToken } = useContext(AppContext)
 
   const fetchCourseData = async ()=>{
     try {
+      console.log("course Id",id)
       const {data} = await axios.get(backendUrl + '/api/course/' + id)
+        console.log(data.courseData)
+        console.log (data.data)
+
 
       if(data.success){
         setCourseData(data.courseData)
-      }else{
+      }
+      else{
         toast.error(data.message)
+        console.log(data.message)
       }
       
     } catch (error) {
