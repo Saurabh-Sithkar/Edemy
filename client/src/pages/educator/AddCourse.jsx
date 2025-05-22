@@ -119,8 +119,11 @@ const AddCourse = () => {
       const {data} = await axios.post(backendUrl + '/api/educator/add-course',
         formData,{headers: {Authorization:`Bearer ${token}`}})
 
+        
+
       if(data.success){
-        toast.success(data.message)
+        // data.courseData k palace pr likha hu In bracket
+        toast.success("Course Successfully Added")
         setCourseTitle('')
         setCoursePrice(0)
         setDiscount(0)
@@ -133,7 +136,6 @@ const AddCourse = () => {
       }
     
     } catch (error) {
-      console.log(error.message)
       toast.error(error.message)
     }
   };
